@@ -1,15 +1,22 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-const tasks = ref([{name: "default task", done: false}]);
+const tasks = ref([{name: "default task", done: true}]);
 
 const addTask = (taskName, isDone) => {
   tasks.value = [...tasks.value, {name: taskName, done: isDone}];
+}
+const removeTask = (taskIndex) => {
+  tasks.value = tasks.value.filter((task, index) => index !== taskIndex);
 }
 </script>
 
 <template>
   <div>
-    <div v-for="task in tasks">{{ task.name }}</div>
+    <div v-for="(task, index) in tasks" :key="index">
+      {{ task.name }}
+      <div v-if="task.done">DONE</div>
+      <button @click="() => removeTask(index)">remove task</button>
+    </div>
     <button @click="() => addTask(`new task`, false)">addTask</button>
   </div>
 </template>
