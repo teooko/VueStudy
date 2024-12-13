@@ -1,17 +1,17 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted, ref } from 'vue';
+const tasks = ref([{name: "default task", done: false}]);
+
+const addTask = (taskName, isDone) => {
+  tasks.value = [...tasks.value, {name: taskName, done: isDone}];
+}
 </script>
 
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <div v-for="task in tasks">{{ task.name }}</div>
+    <button @click="() => addTask(`new task`, false)">addTask</button>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
