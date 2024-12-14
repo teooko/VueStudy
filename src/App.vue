@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import Task from './Task.vue';
 const tasks = ref([{name: "default task", done: true}]);
 
 const addTask = (taskName, isDone) => {
@@ -13,11 +14,9 @@ const removeTask = (taskIndex) => {
 <template>
   <div>
     <div v-for="(task, index) in tasks" :key="index">
-      {{ task.name }}
-      <div v-if="task.done">DONE</div>
-      <button @click="() => removeTask(index)">remove task</button>
+      <Task :name="task.name" :done="task.done" @remove="removeTask(index)"/>
     </div>
-    <button @click="() => addTask(`new task`, false)">addTask</button>
+    <button @click="addTask(`new task`, false)">addTask</button>
   </div>
 </template>
 
