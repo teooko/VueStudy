@@ -12,7 +12,7 @@ const removeTask = (taskIndex) => {
 </script>
 
 <template>
-  <div>
+  <div class="task-list">
     <div v-for="(task, index) in tasks" :key="index">
       <Task :name="task.name" :done="task.done" @remove="removeTask(index)"/>
     </div>
@@ -21,16 +21,10 @@ const removeTask = (taskIndex) => {
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100vh;
+  }
 </style>
