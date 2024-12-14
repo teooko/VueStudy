@@ -1,9 +1,11 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
 import Task from './Task.vue';
+import CustomForm from './Form.vue';
+
 const tasks = ref([{name: "default task", done: true}]);
 const newTask = reactive({name: "new Task", done: false});
-const addTask = (taskName, isDone) => {
+const addTask = () => {
   tasks.value = [...tasks.value, {...newTask}];
 }
 const removeTask = (taskIndex) => {
@@ -13,15 +15,7 @@ const removeTask = (taskIndex) => {
 
 <template>
   <div class="task-list">
-    <form class="form">
-      <label for="name">Name:
-        <input type="text" id="name" v-model="newTask.name"/>
-      </label>
-      <label for="done">Done
-        <input type="checkbox" id="done"  v-model="newTask.done">
-      </label>
-      <button @click.prevent="addTask(`new task`, false)">addTask</button>
-    </form>
+    <CustomForm :newTask="newTask" @addTask="addTask" />
     <div v-for="(task, index) in tasks" :key="index">
       <Task :name="task.name" :done="task.done" @remove="removeTask(index)"/>
     </div>
@@ -34,14 +28,5 @@ const removeTask = (taskIndex) => {
     flex-direction: column;
     gap: 10px;
     height: 100vh;
-  }
-
-  .form {
-    width: 500px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
   }
 </style>
