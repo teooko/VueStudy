@@ -13,10 +13,18 @@ const removeTask = (taskIndex) => {
 
 <template>
   <div class="task-list">
+    <form class="form">
+      <label for="name">Name:
+        <input type="text" id="name"/>
+      </label>
+      <label for="done">Done
+        <input type="checkbox" id="done">
+      </label>
+      <button @click.prevent="addTask(`new task`, false)">addTask</button>
+    </form>
     <div v-for="(task, index) in tasks" :key="index">
       <Task :name="task.name" :done="task.done" @remove="removeTask(index)"/>
     </div>
-    <button @click="addTask(`new task`, false)">addTask</button>
   </div>
 </template>
 
@@ -26,5 +34,13 @@ const removeTask = (taskIndex) => {
     flex-direction: column;
     gap: 10px;
     height: 100vh;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
   }
 </style>
